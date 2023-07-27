@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 
 namespace Cities.Models;
 
@@ -15,5 +16,6 @@ public class City
     [CountryExists(ErrorMessage = "Nie istnieje taki kraj w BD!")]
     public string Country { get; set; } = string.Empty;
     [IgnoreDataMember]
+    [JsonIgnore]
     public Region? Region { get; set; }
 }

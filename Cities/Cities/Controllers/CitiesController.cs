@@ -15,14 +15,14 @@ public class CitiesController : ControllerBase
         _cityService = cityService;
     }
 
-    [HttpGet(Name = "test")]
-    public Task<City_dto> Index()
+    [HttpGet]
+    public Task<City_dto> GetRandom()
     {        
         return _cityService.GetRandomCityAsync();
     }
 
-    [HttpPost(Name = "test1")]
-    public async Task<IActionResult> Post([FromBody] City city)
+    [HttpPost]
+    public async Task<IActionResult> PostCity([FromBody] City city)
     {
         city.Id = 0;
 
@@ -37,15 +37,15 @@ public class CitiesController : ControllerBase
     }
 
     [HttpGet]
-    [Route("/test2/{City_dto}")]
-    public Task<City_dto?> Get(string City_dto)
+    [Route("city_dto")]
+    public Task<City_dto?> GetCity([FromQuery]string city_dto)
     {
-        return _cityService.GetCityAsync(City_dto);
+        return _cityService.GetCityAsync(city_dto);
     }
 
     [HttpGet]
-    [Route("/test3/{region}")]
-    public Task<List<City>> Get3(string region)
+    [Route("region")]
+    public Task<List<City>> GetRegion([FromQuery] string region)
     {
         return _cityService.GetCitiesInRegionAsync(region);
     }

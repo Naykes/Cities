@@ -23,7 +23,7 @@ public class CityService : ICityService
 
     public Task<List<City>> GetCitiesInRegionAsync(string region)
     {
-        return _cityRepository.Query.Where(c => c.Region!.Name == region).ToListAsync();
+        return _cityRepository.Query.Include(c => c.Region).Where(c => c.Region!.Name == region).ToListAsync();
     }
 
     public async Task<City_dto?> GetCityAsync(string city_dto)
