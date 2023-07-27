@@ -37,9 +37,9 @@ public class CityService : ICityService
     {
         int count = await _cityRepository.Query.CountAsync();
 
-        int random = new Random(DateTime.Now.Millisecond).Next(1, count + 1);
+        int random = new Random(DateTime.Now.Millisecond).Next(0, count);
 
-        City city = await _cityRepository.Query.Include(c => c.Region).SingleAsync(c => c.Id == random);
+        City city = await _cityRepository.Query.Include(c => c.Region).OrderBy(c => c.Id).Skip(random).FirstAsync();
 
         return _mapper.Map<City_dto>(city);
     }
