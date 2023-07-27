@@ -1,11 +1,10 @@
 ﻿using Cities.Models;
 
-namespace Cities.Repositories
-{
-    public interface ICityRepository
-    {
-        public Task Add(City city);
+namespace Cities.Repositories;
 
-        public IQueryable<City> Query { get; }
-    }
+public interface ICityRepository
+{
+    public Task Add(City city);
+
+    public IQueryable<City> Query { get; }
 }

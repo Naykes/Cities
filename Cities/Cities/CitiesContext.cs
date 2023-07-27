@@ -17,12 +17,9 @@ public class CitiesContext : DbContext
     {
         modelBuilder.Entity<Region>(r =>
         {
-
             r.HasKey(x => x.Country);
             r.HasMany(r => r.Cities).WithOne(c => c.Region)
             .HasForeignKey(r => r.Country);
-
-
 
             r.HasData(new Region() { Name = "Afryka", Country = "Egipt" });
         });

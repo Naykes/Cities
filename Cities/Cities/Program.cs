@@ -1,5 +1,6 @@
 using Cities;
 using Cities.Repositories;
+using Cities.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,9 +8,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SchemaFilter<MySwaggerSchemaFilter>();
+});
 
 builder.Services.AddDbContext<CitiesContext>(options =>
 {
@@ -18,6 +23,8 @@ builder.Services.AddDbContext<CitiesContext>(options =>
 });
 
 builder.Services.AddTransient<ICityRepository, CityRepository>();
+builder.Services.AddTransient<IRegionRepository, RegionRepository>();
+builder.Services.AddTransient<ICityService, CityService>();
 
 var app = builder.Build();
 
